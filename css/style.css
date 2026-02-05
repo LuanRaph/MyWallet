@@ -1,0 +1,21 @@
+#inicio {
+    background-color: rgb(216, 116, 2);
+    border-end-end-radius: 16px;
+    border-end-start-radius: 16px;
+    height: 70px;
+}
+
+#card-entrada {
+    height: 150px;
+    background-color: rgb(1, 182, 1);
+}
+
+#card-saida {
+    height: 150px;
+    background-color: rgb(207, 0, 0);
+}
+
+#card-saldo {
+    height: 150px;
+    background-color: rgb(3, 0, 189);
+}

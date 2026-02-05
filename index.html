@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../MyWallet/css/style.css">
+</head>
+
+<body>
+    <nav id="inicio" class="navbar navbar-expand-sm navbar-dark sticky-top">
+        <div class="container-fluid">
+            <a href="#" class="navbar-brand">MyWallet</a>
+            <form>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="bi bi-plus-lg"></i>
+                    Transação
+                </button>
+            </form>
+        </div>
+    </nav>
+    <div class="container p-5 mb-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div id="card-entrada" class="card shadow-sm border-1 text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="card-title">ENTRADAS</h6>
+                                <div id="s-entrada">
+                                    <h2>R$ 0</h2>
+                                </div>
+                            </div>
+                            <div class="fs-1">
+                                <i class="bi bi-arrow-up-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="card-saida" class="card shadow-sm text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="card-subtitle">SAIDAS</h6>
+                                <div id="s-saida">
+                                    <h2>R$ 0</h2>
+                                </div>
+                            </div>
+                            <div class="fs-1">
+                                <i class="bi bi-arrow-down-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="card-saldo" class="card text-white">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6>SALDO TOTAL</h6>
+                                <div id="saldo-total">
+                                    <h2>R$ 0</h2>
+                                </div>
+                            </div>
+                            <div class="fs-1">
+                                <i class="bi bi-wallet"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="table-responsive">
+                    <div class="">
+                        <table class="table table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th class="rounded-start">DESCRIÇÃO</th>
+                                    <th>VALOR</th>
+                                    <th>DATA</th>
+                                    <th class="rounded-end">AC</th>
+                                </tr>
+                            </thead>
+                            <tbody id="b-card">
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <h4 class="text-center">Grafico</h3>
+                    <div id="grfc" class="bg-white p-3 shadow-sm rounded">
+                        <canvas id="graficoCanvas"></canvas>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Nova Transação</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" class="needs-validation" onsubmit="get(event)" novalidate>
+                        <div class="mb-3">
+                            <label for="desc" class="form-label">Descrição</label>
+                            <input type="text" class="form-control" id="desc" required>
+                            <div class="invalid-feedback">Você deve informar a descrição</div>
+                            <div class="valid-feedback">Descrição informada corretamente</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="val" class="col-form-label">Valor</label>
+                            <input class="form-control" type="number" step="0.01" id="val" required></input>
+                            <div class="invalid-feedback">Você deve informar o valor</div>
+                            <div class="valid-feedback">Valor informado corretamente</div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="tipo">Tipo de Transição</label>
+                            <br>
+                            <div class="form-check form-check-inline">
+                                <input id="entrada" type="radio" name="option" class="form-check-input border-1"
+                                    required>
+                                <label class="form-check-label" for="entrada">Entrada</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input type="radio" name="option" id="saida" class="form-check-input border-1" required>
+                                <label for="saida" class="form-check-label">Saida</label>
+                            </div>
+                            <div class="invalid-feedback">Você deve informar o tipo</div>
+                            <div class="valid-feedback">Tipo informado corretamente</div>
+                        </div>
+                        <div class="mb-5">
+                            <label for="data" class="col-form-label">Data</label>
+                            <input id="data" class="form-control" type="date" required>
+                            <div class="invalid-feedback">Você deve informar a data</div>
+                            <div class="valid-feedback">Data informada corretamente</div>
+                        </div>
+                        <div class="modal-footer d-flex justify-content-between">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <button type="submit" class="btn btn-primary">Salvar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="../MyWallet/js/main.js"></script>
+
+    <script>(() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })</script>
+</body>
+
+</html>
