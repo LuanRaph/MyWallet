@@ -8,3 +8,5 @@ App web **responsivo** para controle financeiro pessoal.
 - 💾 **Persistência JSON** (salva no navegador)
 - 📱 **Bootstrap 5** - Mobile-first
 - ⚡ **CRUD completo** transações
+
+- Desenvolvido por Luan Raphael
