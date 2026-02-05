@@ -22,8 +22,7 @@ function grafico() {
             datasets: [{
                 data: [s_valor_e, s_valor_s],
                 backgroundColor: ["#10ad10", "#b30f0f"],
-                borderColor: ["#fff", "#fff"],
-                borderWidth: 2
+                borderWidth: 1
             }]
         },
         options: {
@@ -61,11 +60,11 @@ function editar(id) {
 
 function salvarEdicao(id) {
     let trans = transacoes.find(t => t.id === id);
-    
+
     trans.descricao = document.getElementById(`edit_desc_${id}`).value;
     trans.valor = parseFloat(document.getElementById(`edit_val_${id}`).value);
     trans.data = document.getElementById(`edit_data_${id}`).value;
-    
+
     localStorage.setItem('my_wallet_data', JSON.stringify(transacoes));
     atualizarTabela();
 }
@@ -163,6 +162,24 @@ function close() {
 
 window.addEventListener('load', () => {
     atualizarTabela();
+    dark_mode()
 });
+
+function dark_mode () {
+    let tema = document.querySelector("html").getAttribute("data-bs-theme");
+    let icon = document.getElementById("icon_mode")
+    if (tema === "light") {
+        document.querySelector("html").setAttribute("data-bs-theme", "dark");
+        icon.classList.remove("bi-moon-stars-fill");
+        icon.classList.add("bi-brightness-high-fill");
+        
+    }
+    else {
+        document.querySelector("html").setAttribute("data-bs-theme", "light");
+        icon.classList.remove("bi-brightness-high-fill");
+        icon.classList.add("bi-moon-stars-fill");
+    }
+}
+    
 
 
