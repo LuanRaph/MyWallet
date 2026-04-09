@@ -6,6 +6,7 @@ const cors = require("cors");
 const app = express();
 app.use(cors());
 app.use(express.json());
+app.use(express.static('.'));
 
 const pool = new Pool({
     user: process.env.DB_USER,
@@ -38,6 +39,8 @@ app.put('/transacoes/:id', async (req, res) => {
     const result = await pool.query('UPDATE transacoes SET descricao = $1, valor = $2, data = $3 WHERE id = $4 RETURNING *', [descricao, valor, data, req.params.id]);
     res.json(result.rows[0]);
 });
+
+app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'));
 
 const port = process.env.PORT || 4000;
 
