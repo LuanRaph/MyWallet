@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require("express");
+const path = require('path');
 const { Pool } = require("pg");
 const cors = require("cors");
 
@@ -40,7 +41,7 @@ app.put('/transacoes/:id', async (req, res) => {
     res.json(result.rows[0]);
 });
 
-app.get('/', (req, res) => res.sendFile(__dirname + '/index.html'));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 const port = process.env.PORT || 4000;
 
