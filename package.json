@@ -4,7 +4,7 @@
   "description": "MyWallet - Gerenciador Financeiro Web",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node js/index.js"
   },
   "repository": {
     "type": "git",
