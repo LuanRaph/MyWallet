@@ -1,0 +1,26 @@
+{
+  "name": "mywallet",
+  "version": "1.0.0",
+  "description": "MyWallet - Gerenciador Financeiro Web",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LuanRaph/MyWallet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/LuanRaph/MyWallet/issues"
+  },
+  "homepage": "https://github.com/LuanRaph/MyWallet#readme",
+  "dependencies": {
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "pg": "^8.20.0"
+  }
+}

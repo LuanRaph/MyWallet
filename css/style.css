@@ -3,20 +3,42 @@
     border-end-end-radius: 16px;
     border-end-start-radius: 16px;
     height: 70px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
 
 #card-entrada {
     height: 150px;
-    background-color: rgb(1, 182, 1);
+    border-top: 8px solid rgb(0, 207, 69);
+}
+
+#s-entrada {
+    color: rgb(23, 212, 86);
 }
 
 #card-saida {
     height: 150px;
-    background-color: rgb(207, 0, 0);
+    border-top: 8px solid rgb(185, 58, 58);
+}
+
+#s-saida {
+    color: rgb(197, 62, 62);
 }
 
 #card-saldo {
     height: 150px;
-    background-color: rgb(3, 0, 189);
+    border-top: 8px solid rgb(65, 104, 189);
 }
 
+#saldo-total {
+    color: rgb(65, 104, 189);
+}
+
+
+#logo {
+    color: rgb(0, 207, 69);
+}
+
+#btn-trans {
+    background-color: rgb(0, 207, 69);
+}
