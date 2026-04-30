@@ -165,7 +165,12 @@ async function get(event) {
     event.preventDefault()
     let descricao = document.getElementById("desc").value;
     let valor = parseFloat(document.getElementById("val").value);
-    let tipo = document.querySelector('input[name="option"]:checked').id;
+    let tipo = document.querySelector('input[name="option"]:checked');
+    if (!tipoElement) {
+        alert('Selecione Entrada ou Saída!');
+        return;
+    }
+    let tipo = tipoElement.id;
     let data = document.getElementById("data").value;
 
     const res = await fetch(`${API}/transacoes`, {
