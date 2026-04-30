@@ -1,5 +1,5 @@
 let transacoes = []
-const API = "https://mywallet.railway.app";
+const API = "https://mywallet-production-cc6c.up.railway.app";
 async function carregarTransacoes() {
     const res = await fetch(`${API}/transacoes`);
     transacoes = await res.json();
