@@ -1,8 +1,10 @@
 let transacoes = []
 const API = "https://mywallet-production-cc6c.up.railway.app";
 async function carregarTransacoes() {
+    document.getElementById('loading-row').style.display = '';
     const res = await fetch(`${API}/transacoes`);
     transacoes = await res.json();
+    document.getElementById('loading-row').style.display = 'none';
     atualizarTabela()
 }
 let s_valor_e = 0
@@ -40,14 +42,6 @@ function grafico() {
             }
         }
     });
-}
-
-function dataInput(data) {
-    const d = new Date(data);
-    const ano = d.getUTCFullYear();
-    const mes = String(d.getUTCMonth() + 1).padStart(2, '0');
-    const dia = String(d.getUTCDay()).padStart(2, '0');
-    return `${ano}-${mes}-${dia}` 
 }
 
 function editar(id) {
@@ -96,6 +90,8 @@ function cancelarEdicao(id) {
 
 
 async function excluir(id) {
+    const confirmar = confirm('Tem certeza que quer excluir essa transação?')
+    if (!confirmar) return;
     await fetch(`${API}/transacoes/${id}`, {
         method: 'DELETE'
     });
@@ -182,7 +178,12 @@ async function get(event) {
     const transacao = await res.json();
     transacoes.push(transacao);
     atualizarTabela();
-    close()
+    document.getElementById("desc").value = '';
+    document.getElementById("val").value = '';
+    document.getElementById("data").value = '';
+    document.querySelectorAll('input[name="option"]').forEach(r => r.checked = false);
+    document.querySelector('.needs-validation').classList.remove('was-validated');
+    close();
 }
 function close() {
     let mElement = document.getElementById("exampleModal");
