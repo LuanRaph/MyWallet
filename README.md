@@ -1,36 +1,36 @@
-MyWallet - Gerenciador Financeiro Fullstack
+#  MyWallet — Controle Financeiro Pessoal
 
-Aplicação web para controle financeiro pessoal com frontend integrado a uma API e banco de dados na nuvem.
+Aplicação fullstack para controle financeiro pessoal com dashboard interativo, gráficos em tempo real e persistência de dados na nuvem.
 
-Funcionalidades
+## 🔗 Acesse o projeto
+**[mywallet-production-cc6c.up.railway.app](https://mywallet-production-cc6c.up.railway.app/)**
 
-- ✅ Adicionar transações (entrada/saída)
-- ✅ Editar e excluir transações (CRUD completo)
-- 📊 Gráficos interativos com Chart.js
-- 🌙 Dark mode
-- 💾 Persistência com PostgreSQL (dados salvos na nuvem)
-- 🔗 Integração frontend + backend via API REST
+---
 
-Tecnologias
+##  Funcionalidades
 
-Frontend:
+-  Adicionar, editar e excluir transações (CRUD completo)
+-  Dashboard com gráfico de entradas x saídas (Chart.js)
+-  Dark mode
+-  Persistência com PostgreSQL na nuvem
+-  Frontend integrado ao backend via API REST
+-  Feedback visual com loading spinner e confirmação de exclusão
+
+---
+
+## 🛠️ Tecnologias
+
+**Frontend**
 - HTML, CSS, JavaScript
-- Bootstrap 5
+- Bootstrap 5 + Bootstrap Icons
 - Chart.js
 
-Backend:
-- Node.js
-- Express
-
-Banco de Dados:
+**Backend**
+- Node.js + Express
 - PostgreSQL
+- dotenv
 
-Outros:
-- Railway (deploy backend)
-- Fetch API
+**Deploy**
+- Railway (backend + banco de dados)
 
-Acesse o projeto
-
-https://mywallet-production-cc6c.up.railway.app/
-
-Desenvolvido por Luan Raphael
+---
