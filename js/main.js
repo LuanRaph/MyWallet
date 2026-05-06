@@ -1,11 +1,21 @@
 let transacoes = []
 const API = "https://mywallet-production-cc6c.up.railway.app";
 async function carregarTransacoes() {
-    document.getElementById('loading-row').style.display = '';
-    const res = await fetch(`${API}/transacoes`);
-    transacoes = await res.json();
-    document.getElementById('loading-row').style.display = 'none';
-    atualizarTabela()
+    try {
+        document.getElementById('loading-row').style.display = '';
+        const res = await fetch(`${API}/transacoes`);
+        if (!res.ok) throw new Error("Erro ao buscar transações"); 
+        transacoes = await res.json();
+        document.getElementById('loading-row').style.display = 'none';
+        atualizarTabela();
+    } catch (err) {
+        document.getElementById('loading-row').innerHTML = `
+        <td colspan="4" class="text-center py-4 text-danger">
+            <i class="bi bi-wifi-off fs-3"></i>
+            <p class="mt-2">Não foi possivel carregar as transações.<br>Verifique sua conexão!</p>
+        </td>
+        `;
+    }
 }
 let s_valor_e = 0
 let s_valor_s = 0
@@ -158,7 +168,7 @@ function atualizarTabela() {
 };
 
 async function get(event) {
-    event.preventDefault()
+    event.preventDefault();
     let descricao = document.getElementById("desc").value;
     let valor = parseFloat(document.getElementById("val").value);
     let tipoElement = document.querySelector('input[name="option"]:checked');
@@ -168,12 +178,13 @@ async function get(event) {
     }
     let tipo = tipoElement.id;
     let data = document.getElementById("data").value;
-
-    const res = await fetch(`${API}/transacoes`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ descricao, valor, tipo, data })
-    });
+    try {
+        const res = await fetch(`${API}/transacoes`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ descricao, valor, tipo, data })
+        });
+    if (!res.ok) throw new Error("Erro ao salvar");
 
     const transacao = await res.json();
     transacoes.push(transacao);
@@ -184,6 +195,9 @@ async function get(event) {
     document.querySelectorAll('input[name="option"]').forEach(r => r.checked = false);
     document.querySelector('.needs-validation').classList.remove('was-validated');
     close();
+    } catch (err) {
+        alert("Erro ao salvar transação. Tente novamente!");
+    }
 }
 function close() {
     let mElement = document.getElementById("exampleModal");
