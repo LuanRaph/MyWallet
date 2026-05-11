@@ -1,9 +1,15 @@
+const token = localStorage.getItem('token');
+if (!token) window.location.href = 'login.html';
 let transacoes = []
 const API = "https://mywallet-production-cc6c.up.railway.app";
 async function carregarTransacoes() {
     try {
         document.getElementById('loading-row').style.display = '';
-        const res = await fetch(`${API}/transacoes`);
+        const res = await fetch(`${API}/transacoes`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
         if (!res.ok) throw new Error("Erro ao buscar transações"); 
         transacoes = await res.json();
         document.getElementById('loading-row').style.display = 'none';
@@ -83,7 +89,7 @@ async function salvarEdicao(id) {
 
     const res = await fetch(`${API}/transacoes/${id}`, {
         method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`},
         body: JSON.stringify({descricao, valor, data})
     });
     const atualizada = await res.json();
@@ -103,7 +109,8 @@ async function excluir(id) {
     const confirmar = confirm('Tem certeza que quer excluir essa transação?')
     if (!confirmar) return;
     await fetch(`${API}/transacoes/${id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        headers: {'Authorization': `Bearer ${token}`}
     });
     transacoes = transacoes.filter(t => t.id !== id);
     atualizarTabela();
@@ -181,8 +188,9 @@ async function get(event) {
     try {
         const res = await fetch(`${API}/transacoes`, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ descricao, valor, tipo, data })
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}`},
+            body: JSON.stringify({ descricao, valor, tipo, data }),
+
         });
     if (!res.ok) throw new Error("Erro ao salvar");
 
@@ -210,7 +218,7 @@ window.addEventListener('load', () => {
     dark_mode()
 });
 
-function dark_mode () {
+function dark_mode() {
     let tema = document.querySelector("html").getAttribute("data-bs-theme");
     let icon = document.getElementById("icon_mode");
     if (tema === "light") {
