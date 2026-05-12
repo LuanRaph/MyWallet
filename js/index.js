@@ -14,11 +14,8 @@ app.use(express.json());
 app.use(express.static('.'));
 
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_HOST,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
-    port: process.env.DB_PORT
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
 });
 
 function autenticar(req, res, next) {
@@ -36,7 +33,7 @@ function autenticar(req, res, next) {
 }
 
 
-app.post('/cadastro', autenticar, async (req, res) =>  {
+app.post('/cadastro', async (req, res) =>  {
     const { nome, email, senha} = req.body;
 
     try {
@@ -51,7 +48,7 @@ app.post('/cadastro', autenticar, async (req, res) =>  {
     }
 });
 
-app.post('/login', autenticar, async(req, res) => {
+app.post('/login', async(req, res) => {
     const { email, senha } = req.body;
 
     try {

@@ -1,4 +1,4 @@
-const API = "https://mywallet-production-cc6c.up.railway.app";
+const API = "http://localhost:4000";
 function dark_mode() {
     let tema = document.querySelector("html").getAttribute("data-bs-theme");
     let icon = document.getElementById("icon_mode");
