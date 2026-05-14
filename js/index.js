@@ -71,26 +71,26 @@ app.post('/login', async(req, res) => {
 })
 
 app.get('/transacoes', autenticar, async (req, res) => {
-    const result = await pool.query('SELECT * FROM transacoes ORDER BY data DESC');
+    const result = await pool.query('SELECT * FROM transacoes WHERE usuario_id = $1 ORDER BY data DESC', [req.usuario.id]);
     res.json(result.rows);
 });
 
 app.post('/transacoes', autenticar, async (req, res) => {
     const { descricao, valor, tipo, data } = req.body;
     const result = await pool.query(
-        'INSERT INTO transacoes (descricao, valor, tipo, data) VALUES ($1, $2, $3, $4) RETURNING *', [descricao, valor, tipo, data]
+        'INSERT INTO transacoes (descricao, valor, tipo, data, usuario_id) VALUES ($1, $2, $3, $4, $5) RETURNING *', [descricao, valor, tipo, data, req.usuario.id]
     );
     res.json(result.rows[0]);
 });
 
 app.delete('/transacoes/:id', autenticar, async (req, res) => {
-    await pool.query('DELETE FROM transacoes WHERE id = $1', [req.params.id]);
+    await pool.query('DELETE FROM transacoes WHERE id = $1 AND usuario_id = $2', [req.params.id, req.usuario.id]);
     res.json({ mensagem: 'Deletado!' });
 });
 
 app.put('/transacoes/:id', autenticar, async (req, res) => {
     const { descricao, valor, data } = req.body;
-    const result = await pool.query('UPDATE transacoes SET descricao = $1, valor = $2, data = $3 WHERE id = $4 RETURNING *', [descricao, valor, data, req.params.id]);
+    const result = await pool.query('UPDATE transacoes SET descricao = $1, valor = $2, data = $3 WHERE id = $4 AND usuario_id = $5 RETURNING *', [descricao, valor, data, req.params.id, req.usuario.id]);
     res.json(result.rows[0]);
 });
 
