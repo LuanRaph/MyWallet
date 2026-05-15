@@ -1,7 +1,7 @@
 const token = localStorage.getItem('token');
 if (!token) window.location.href = 'login.html';
 let transacoes = []
-const API = "http://localhost:4000";
+const API = "https://mywallet-x97u.onrender.com";
 async function carregarTransacoes() {
     try {
         document.getElementById('loading-row').style.display = '';
