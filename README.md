@@ -33,4 +33,5 @@ Aplicação fullstack para controle financeiro pessoal com autenticação JWT, d
 - bcrypt
 - dotenv
 
+- ---
 - Desenvolvido por [Luan Raphael](https://github.com/LuanRaph)
